@@ -1,3 +1,6 @@
+export const metadata = {
+    title: "Tickets",
+}
 export default function Ticket(){
     return (
         <div>
