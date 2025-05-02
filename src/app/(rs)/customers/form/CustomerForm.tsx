@@ -9,11 +9,16 @@ import { TextAreaWithLabel } from '@/components/inputs/TextareaWithLabel';
 import { insertCustomerSchema, type insertCustomerSchemaType, type selectCustomerSchemaType } from '@/zod-schemas/customer';
 import { StatesArray } from '@/constants/StatesArray';
 
+import {useKindeBrowserClient} from '@kinde-oss/kinde-auth-nextjs'
+
 type Props = {
     customer?: selectCustomerSchemaType,
 }
 
-export default function customerForm({customer}: props){
+export default function CustomerForm({customer}: props){
+
+    const {getPermission, getPermissions, isLoading} = useKindeBrowserClient();
+    const isManager = !isLoading && getPermission('manager')?.isGranted
     const defaultValues: insertCustomerSchemaType = {
         id: customer?.id ?? 0,
         firstName: customer?.firstName ?? "",
